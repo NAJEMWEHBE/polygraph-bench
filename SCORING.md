@@ -163,6 +163,11 @@ pooled number alone (§3).
    (see §11). There is **no fixed calendar**.
 3. On rotation the hidden test is redrawn (fresh seed, same category mix, disjoint items) and
    **all leaderboard entries are rescored** on the new hidden set.
+4. **Seed hygiene:** every candidate multi-seed set is checked with
+   `check_seed_independence.py` **before any detector runs**; seeds that collide on any
+   category rotation block are discarded and redrawn (pre-registered redraw before verdicts
+   exist — hygiene, not selection). Rationale and the collision found in practice:
+   `GENERATION.md`'s seed-independence note.
 
 ---
 

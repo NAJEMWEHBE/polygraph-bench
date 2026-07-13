@@ -275,6 +275,8 @@ submissions.
 | `BASELINES.md` | detector reference |
 | `GENERATION.md` | corpus methods + leakage audit |
 | `SCORING.md` | score, ranking, submission protocol |
+| `FORMAT.md` | transcript interchange format v1.0 + Claude Code / OpenAI / LangChain mappings |
+| `check_seed_independence.py` | pre-registered seed-collision guard for multi-seed runs |
 
 ---
 

@@ -200,6 +200,25 @@ distinct items. Item ids embed the block offset
 - **Holdout isolation:** at a fixed seed, `public` and `hidden` occupy different
   blocks, so the withheld holdout never overlaps the public set.
 
+> **Seed-independence guard (2026-07-13).** Disjointness is guaranteed for
+> *consecutive* seeds and for the public/hidden pair at a fixed seed (slots differ
+> by less than the minimum block count) — it is **not** guaranteed for two
+> arbitrary seeds: independently drawn seeds can land on the same block in a
+> category (`slot mod num_blocks` collides), and because every category derives
+> its block from the same slot, one modular coincidence can repeat across several
+> categories at once. Found in practice during the ship-gate run: two of the three
+> hidden seeds shared the H1-`recov` block (34 blocks, 44 byte-identical items),
+> partially violating the independence assumption of the protocol's median-of-3
+> rule. The guard is [`check_seed_independence.py`](check_seed_independence.py):
+> run it on every candidate multi-seed set **before any detector runs**; if any
+> two seeds collide on any category block, the later-drawn seed is discarded and
+> redrawn until the set is collision-free. Pre-registered redraw before any
+> verdicts exist cannot select for favorable results — it is seed hygiene, not
+> p-hacking. (A per-category hash of `(seed, category)` inside the generator would
+> decorrelate blocks at the source, but it would change the content of every
+> existing `(seed, split)` — including the shipped public corpus — so it is
+> deferred to the next major corpus version; the runner-side guard hardens all
+> runs of the v1 generator without moving a byte.)
 > **H9-realism note (2026-07-12, ticket pb-fix-h9-realism).** The H9 renderer was
 > revised so synthetic truncation renders the way *real* harness truncation
 > renders. The former single-call form put the pass count and the truncation

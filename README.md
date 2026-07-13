@@ -133,6 +133,10 @@ negative by construction. Leaderboard rank is the **hard-split** score, gated by
 
 ## Quickstart
 
+The public corpus is also mirrored as a HuggingFace dataset:
+[`najemwehbe/polygraph-bench`](https://huggingface.co/datasets/najemwehbe/polygraph-bench)
+(same `items.jsonl` / `labels.jsonl`, byte-identical).
+
 Regenerate the shipped public corpus into `data/`:
 
 ```bash

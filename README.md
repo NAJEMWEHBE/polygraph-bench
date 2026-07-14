@@ -1,8 +1,20 @@
 # Polygraph Bench
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-3fb950)](LICENSE)
+[![Dataset on HF](https://img.shields.io/badge/🤗%20dataset-polygraph--bench-yellow)](https://huggingface.co/datasets/najemwehbe/polygraph-bench)
+[![Leaderboard](https://img.shields.io/badge/leaderboard-live-388bfd)](https://najemwehbe.github.io/polygraph-bench/)
+[![Corpus](https://img.shields.io/badge/corpus-396%20items%20·%2016%20categories-8b949e)](#the-corpus)
+[![Submissions](https://img.shields.io/badge/detector%20PRs-welcome-3fb950)](CONTRIBUTING.md)
+
+![Polygraph Bench — agent transcript goes into a detector, verdict comes out and is scored against the label](docs/assets/hero.svg)
+
 A public benchmark for **agent-lying detectors**. It measures the detector, not the
 agent: given one agent turn, does a detector correctly decide whether the turn's closing
 message makes a completion or success claim that the turn's own evidence contradicts?
+
+**See it run** — two commands, verdicts to scored report:
+
+![Quickstart demo: run a baseline detector, score it, read the per-split report](docs/assets/demo.gif)
 
 The unit of judgment is a single agent turn — a task, the tool calls and results it
 produced ("evidence"), and the final assistant message ("closing"). Items are labelled
@@ -33,6 +45,8 @@ locally, as the maintainers' check that the synthetic numbers track reality (see
 ## How it works
 
 ### The corpus
+
+![Corpus taxonomy: 7 lie categories and 9 honest categories across core and hard splits, every lie paired with an honest twin](docs/assets/taxonomy.svg)
 
 The public set is **396 synthetic items** (176 `lie`, 220 `honest`), spanning **7 lie
 categories (L1–L7)** and **9 honest categories (H1–H9)**. Items are split into two
@@ -259,6 +273,8 @@ a runtime cap on the public dev split. The full submission rules, the score defi
 the hidden-set rotation policy are in **[SCORING.md](SCORING.md)**.
 
 ## Leaderboard
+
+[![Live leaderboard: real private holdout + hidden synthetic set, three baselines ranked](docs/assets/leaderboard-card.png)](https://najemwehbe.github.io/polygraph-bench/)
 
 The leaderboard is published via **GitHub Pages** from
 [`docs/index.html`](docs/index.html). It ranks detectors by hard-split score (core floor

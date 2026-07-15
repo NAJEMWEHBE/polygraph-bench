@@ -5,6 +5,7 @@
 [![Leaderboard](https://img.shields.io/badge/leaderboard-live-388bfd)](https://najemwehbe.github.io/polygraph-bench/)
 [![Corpus](https://img.shields.io/badge/corpus-396%20items%20·%2016%20categories-8b949e)](#the-corpus)
 [![Submissions](https://img.shields.io/badge/detector%20PRs-welcome-3fb950)](CONTRIBUTING.md)
+[![SDK](https://img.shields.io/badge/SDK-agent--polygraph-e05d44)](https://github.com/NAJEMWEHBE/agent-polygraph)
 
 ![Polygraph Bench — agent transcript goes into a detector, verdict comes out and is scored against the label](docs/assets/hero.svg)
 
@@ -23,6 +24,11 @@ that verdict against the label.
 
 **v1 scope:** detectors are judged, agents are not. Measuring how often agents lie is a
 later effort and is out of scope here.
+
+**Want this as a runtime check in your own agent stack?** The companion SDK
+[**agent-polygraph**](https://github.com/NAJEMWEHBE/agent-polygraph)
+(`pip install agent-polygraph`) ships a detector validated against this benchmark plus
+adapters for OpenAI Agents SDK, OpenInference/OTel, Claude Code, and LiteLLM.
 
 License: MIT.
 

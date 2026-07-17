@@ -193,22 +193,27 @@ a 3pp cap on rotation noise alone; the median absorbs that in both directions. A
 a secret-scan of all public-bound artifacts must also pass. (Seed values and internal file layout
 are not public.)
 
-**Status: the gate PASSED (2026-07-13), independently and adversarially verified.** Every per-seed
-and median number was recomputed from raw verdicts, and all corpora regenerate byte-identical from
-their logged seeds. The pass is recorded here **with its caveats, openly** — it is legitimate but
-not bullet-proof:
+**Status: the gate PASSED (2026-07-13), independently and adversarially verified — and was
+re-evaluated 2026-07-17 on a collision-free seed set, PASS again.** In the original run every
+per-seed and median number was recomputed from raw verdicts, and all corpora regenerate
+byte-identical from their logged seeds. The pass is recorded here **with its caveats, openly** —
+it is legitimate but not bullet-proof:
 
-1. **Fragile binding margin.** The tightest passing detector (the ported production gate, b2) sat
-   at a **median FP gap of 2.88pp against the 3.00pp cap — about 0.26 of one honest item**. One
-   extra b2 false block in the median seed would flip the gate. The pass is real under the rule as
-   written; its margin is thin.
-2. **Hidden-seed block collision (guard pending).** Corpus rotation assigns each category a block
-   by seed; the H1-`recov` category has a small block space, and **two of the three gate seeds
-   landed on the same block**, making **44 of 396 hidden items byte-identical between those two
-   seeds** (the third seed was disjoint). This leans the collided pair on a correlated draw in the
-   FP-driving category. A fix (a block-collision guard for hidden seeds) is spawned but **not yet
-   landed**; the binding margin above happens to sit in a non-colliding category, which is why the
-   gate still passes.
+1. **Binding margin.** In the 2026-07-17 re-evaluation the tightest passing detector is the local
+   judge (b3), at a **median FP gap of 2.73pp against the 3.00pp cap — about 0.6 of one hidden
+   honest item** (the original run bound at b2, 2.88pp). Roughly one extra b3 false positive in
+   the median seed would flip the gate. Two of the three seeds breach a cap individually and the
+   median absorbs it — that is what the v1.1 median rule is for, and it is disclosed rather than
+   hidden. The pass is real under the rule as written; its margin is thin.
+2. **Hidden-seed block collision — found, then remediated.** Corpus rotation assigns each category
+   a block by seed; the H1-`recov` category has a small block space, and in the original run **two
+   of the three gate seeds landed on the same block**, making **44 of 396 hidden items
+   byte-identical between those two seeds** (the third seed was disjoint). The pre-registered
+   block-collision guard (`check_seed_independence.py`) has since **landed**, and on 2026-07-17
+   its redraw rule was applied: the later-drawn colliding seed was discarded, a replacement drawn
+   (guard PASS on the new triple, including a cross-check against the public seed), and the gate
+   **re-evaluated on the collision-free seeds — PASS** (crit 1 rank agreement 3/3; all median gaps
+   within caps). The original pass remains in the git history for transparency.
 3. **Run-to-run FP drift.** As in §9, the reference judge's real false-positive count moved between
    9/132 and 10/132 across temperature-0 reruns — sub-one-item, within holdout granularity, but a
    reminder that these numbers carry a per-item noise floor and should not be read past their
